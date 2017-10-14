@@ -9,10 +9,7 @@ import java.util.Scanner;
  * and open the template in the editor.
  */
 
-/**
- *
- * @author James
- */
+
 public class Question {
     int s;
     private String question;
