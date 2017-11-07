@@ -5,22 +5,27 @@ import javax.swing.JPanel;
 
 
 
-
+//Usergroup class
 public class UserGroup implements UserComp{
     private String id;
     
-    ArrayList g = new ArrayList();
-    public UserGroup(String id){
+    private ArrayList g = new ArrayList();
+    Database d;
+    public UserGroup(String id, Database d){
         this.id = id;
+        this.d = d;
     }
+    //add user or usergroup to group
     public void add(UserComp u) {
         g.add(u);
     }
 
-    
+    //return usergroup ID
     public String getID() {
         return id;
     }
+    
+    //display usergroup
     public void display(JPanel p){
         p.add(new JLabel("Group: " + id));
         Iterator groupI = g.iterator();

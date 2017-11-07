@@ -1,5 +1,4 @@
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -73,6 +72,7 @@ public class UserView extends JFrame implements ActionListener{
         setVisible(true);
     }
     
+    //display news feed for user
     public void displayFeed(){
         newsFeed.add(new JLabel("News Feed"));
         Date d = new Date();
@@ -85,6 +85,7 @@ public class UserView extends JFrame implements ActionListener{
         }
         
     }
+    //display followers of user
     public void displayFollowers(){
         followerList.add(new JLabel("Followers: "));
         for(int z = 0; z < u.getFollowers().size(); z++){
@@ -94,6 +95,7 @@ public class UserView extends JFrame implements ActionListener{
             revalidate();
         }
     }
+//updates followers with user's status
 public void Update(String s){
         for(int a = 0; a < u.getFollowers().size(); a++){
             
@@ -105,15 +107,23 @@ public void Update(String s){
         }
     }
 
+//checks for predetermined positive words
+public void positiveCheck(){
+    if(tweetField.getText().contains("great") || tweetField.getText().contains("awesome") || tweetField.getText().contains("cool") || tweetField.getText().contains("neat")){
+        d.addedPositive();
+    }
+}
     
     public void actionPerformed(ActionEvent e) {
+        //follow user ID in textfield
         if(e.getActionCommand().equals("follow")){
             followerList.removeAll();
             u.follow(followUser.getText());
             displayFollowers();
-            
+         //post status
         }else if(e.getActionCommand().equals("tweet")){
             d.addedMessage();
+            positiveCheck();
             newsFeed.removeAll();
             u.status(tweetField.getText());
             Update(tweetField.getText());

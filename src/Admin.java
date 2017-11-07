@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,10 +6,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author smaug
- */
+/*
+Admin Window
+includes panels for all controls and tree view
+*/
 public class Admin extends JFrame implements ActionListener{
     private Database d = Database.getInstance();
     
@@ -28,7 +27,6 @@ public class Admin extends JFrame implements ActionListener{
     JPanel tree = new JPanel();
     
     public Admin(){
-       
     //Frame setup
     setSize(600,640);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -115,29 +113,34 @@ public class Admin extends JFrame implements ActionListener{
             revalidate();
         //Creates Group   
         }else if(e.getActionCommand().equals("group")){
-            d.getGroups().add(new UserGroup(g_id.getText()));
+            d.getGroups().add(new UserGroup(g_id.getText(),d));
             d.addedGroup();
-            d.getGroups().get(0).add(new UserGroup(g_id.getText()));
+            d.getGroups().get(0).add(new UserGroup(g_id.getText(),d));
             tree.removeAll();
             d.getGroups().get(0).display(tree);
             revalidate();
         //Gets usercount
         }else if(e.getActionCommand().equals("userCount")){
-         int i = d.getuCount();
+         float i = d.getuCount();
          
          JOptionPane.showMessageDialog(rootPane, "User Count: " + i);
          
         //Gets groupcount
         }else if(e.getActionCommand().equals("groupCount"))  {
          
-         int w = d.getgCount();
+         float w = d.getgCount();
          
          JOptionPane.showMessageDialog(rootPane, "User Group Count: " + w);
          //gets percentage
+         
         }else if(e.getActionCommand().equals("percent")){
+         float q = (d.getPositive()/d.getmCount())  * 100;
+         
+         JOptionPane.showMessageDialog(rootPane, "Positive Count: " + q + "%");
+         
          //gets total messagecount
         }else if(e.getActionCommand().equals("messageCount")){
-            int y = d.getmCount();
+            float y = d.getmCount();
          
          JOptionPane.showMessageDialog(rootPane, "Message Count: " + y);
          //Opens user view window   

@@ -1,7 +1,4 @@
 
-
-
-
 import java.util.ArrayList;
 
 
@@ -15,7 +12,8 @@ public class Database {
     //count for users and usergroups
     private int uCount = 7;
     private int gCount = 3;
-    private int mCount = 0;
+    private float mCount = 0;
+    private float positive = 0;
     //singleton instance
     private static final Database d = new Database();
     
@@ -27,9 +25,9 @@ public class Database {
     
     //sample group and user creation
     void initial(){
-        UserGroup Root = new UserGroup("Root");
-        UserGroup GroupA = new UserGroup("Club A");
-        UserGroup GroupB = new UserGroup("Club B");
+        UserGroup Root = new UserGroup("Root",this);
+        UserGroup GroupA = new UserGroup("Club A",this);
+        UserGroup GroupB = new UserGroup("Club B",this);
         Root.add(GroupA);
         Root.add(GroupB);
         
@@ -91,8 +89,14 @@ public class Database {
     void addedUser(){
         uCount++;
     }
-    int getmCount(){
+    float getmCount(){
         return mCount;
+    }
+    float getPositive(){
+        return positive;
+    }
+    void addedPositive(){
+        positive++;
     }
     void addedMessage(){
         mCount++;
