@@ -9,6 +9,7 @@ public class User implements UserComp{
 private String id;
 private ArrayList<User>followers = new ArrayList<User>();
 Database d;
+private boolean isUser = true;
 ArrayList feed = new ArrayList();
     public User(String id, Database d){
         this.id = id;
@@ -18,6 +19,10 @@ ArrayList feed = new ArrayList();
     //User is leaf; not used
     public void add(UserComp u) {
         throw new UnsupportedOperationException("Not supported yet."); 
+    }
+    
+    public boolean userCheck(){
+        return isUser;
     }
 
     //return ID

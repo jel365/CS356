@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 //Usergroup class
 public class UserGroup implements UserComp{
     private String id;
-    
+    private boolean isUser = false;
     private ArrayList g = new ArrayList();
     Database d;
     public UserGroup(String id, Database d){
@@ -19,7 +19,9 @@ public class UserGroup implements UserComp{
     public void add(UserComp u) {
         g.add(u);
     }
-
+    public boolean userCheck(){
+        return isUser;
+    }
     //return usergroup ID
     public String getID() {
         return id;

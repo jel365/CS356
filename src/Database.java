@@ -10,8 +10,8 @@ public class Database {
     private ArrayList<UserGroup> groupbase = new ArrayList<UserGroup>();
     
     //count for users and usergroups
-    private int uCount = 7;
-    private int gCount = 3;
+    private int uCount = 0;
+    private int gCount = 0;
     private float mCount = 0;
     private float positive = 0;
     //singleton instance
@@ -20,51 +20,10 @@ public class Database {
     
     //constructor
     private Database(){
-        initial();
+        
     }
     
-    //sample group and user creation
-    void initial(){
-        UserGroup Root = new UserGroup("Root",this);
-        UserGroup GroupA = new UserGroup("Club A",this);
-        UserGroup GroupB = new UserGroup("Club B",this);
-        Root.add(GroupA);
-        Root.add(GroupB);
-        
-        
-        groupbase.add(Root);
-        groupbase.add(GroupA);
-        groupbase.add(GroupB);
-        
-        User A = new User("Stan",this);
-        User B = new User("Danielle",this);
-        User C = new User("Jenny",this);
-        User D = new User("Mike",this);
-        User E = new User("Alan",this);
-        User F = new User("Steve",this);
-        User G = new User("Ken",this);
-        
-        GroupA.add(A);
-        GroupA.add(B);
-        GroupA.add(C);
-        GroupB.add(D);
-        GroupB.add(E);
-        GroupB.add(F);
-        GroupB.add(G);
-        
-        userbase.add(A);
-        userbase.add(B);
-        userbase.add(C);
-        userbase.add(D); 
-        userbase.add(E);
-        userbase.add(F);
-        userbase.add(G);
-        
-        
-                
-                
-                
-    } 
+    
     //retrieve singleton instance
     static Database getInstance(){
         return d;
