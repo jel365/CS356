@@ -30,10 +30,7 @@ ArrayList feed = new ArrayList();
         return id;
     }
 
-    //display user for tree
-    public void display(JPanel p) {
-        p.add(new JLabel("-User: " + id));
-    }
+    
     
     //return follower list
     public ArrayList<User> getFollowers(){

@@ -27,15 +27,8 @@ public class UserGroup implements UserComp{
         return id;
     }
     
-    //display usergroup
-    public void display(JPanel p){
-        p.add(new JLabel("Group: " + id));
-        Iterator groupI = g.iterator();
-        while(groupI.hasNext()){
-            UserComp i = (UserComp) groupI.next();
-            i.display(p);
-        }
-    }
+    
+    
     
     
 }
