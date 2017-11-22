@@ -31,6 +31,9 @@ public class Admin extends JFrame implements ActionListener{
     private JTextField view = new JTextField(20);
     private JButton addView = new JButton("Open user view");
     
+    private JButton validating = new JButton("Validate users and groups");
+    private JButton lastU = new JButton("Last User Updated");
+    
     //controls_B objects
     private JButton userNum = new JButton("Total Users");
     private JButton groupNum = new JButton("Total Groups");
@@ -66,12 +69,18 @@ public class Admin extends JFrame implements ActionListener{
         addGroup.setActionCommand("group");
         addView.addActionListener(this);
         addView.setActionCommand("userView");
+        validating.addActionListener(this);
+        validating.setActionCommand("validate");
+        lastU.addActionListener(this);
+        lastU.setActionCommand("last");
         controls_A.add(userText);
         controls_A.add(addUser);
         controls_A.add(groupText);
         controls_A.add(addGroup);
         controls_A.add(view);
         controls_A.add(addView);
+        controls_A.add(validating);
+        controls_A.add(lastU);
         controls_A.setBackground(Color.cyan);
         
         
@@ -125,14 +134,67 @@ public class Admin extends JFrame implements ActionListener{
         }
         
     }
+    
+    public void validation(){
+        boolean invalid  = false;
+        for(int a = 0; a < d.getUsers().size(); a++){
+            if(invalid){
+                break;
+            }
+            String origin = d.getUsers().get(a).getID();
+            int count = 0;
+            for(int b = 0; b < d.getUsers().size(); b++){
+                String comp = d.getUsers().get(b).getID();
+                if(comp.equals(origin)){
+                    count++;
+                }
+                if(count >= 2 || comp.contains(" ")){
+                    System.out.println("invalid userbase");
+                    invalid = true;
+                    break;
+                }
+            }
+        }
+        invalid = false;
+        for(int a = 0; a < d.getGroups().size(); a++){
+            if(invalid){
+                break;
+            }
+            String origin = d.getGroups().get(a).getID();
+            int count = 0;
+            for(int b = 0; b < d.getGroups().size(); b++){
+                String comp = d.getGroups().get(b).getID();
+                if(comp.equals(origin)){
+                    count++;
+                }
+                if(count >= 2 || comp.contains(" ")){
+                    System.out.println("invalid Groupbase");
+                    invalid = true;
+                    break;
+                }
+            }
+        }
+        
+    }
 
+    public String lastUpdatedUser(){
+        String use = "none";
+        long current = 0;
+        for(int i = 0; i < d.getUsers().size(); i++){
+            if(d.getUsers().get(i).getUpdate() > current){
+                current = d.getUsers().get(i).getUpdate();
+                use = d.getUsers().get(i).getID();
+            }
+        }
+        return use;
+    }
     
     public void actionPerformed(ActionEvent e) {
         
         if(e.getActionCommand().equals("user")){
             
             add(userText.getText(),false);
-            d.getUsers().add(new User(userText.getText(), d));
+            d.getUsers().add(new User(userText.getText(), d, System.currentTimeMillis(), System.currentTimeMillis()));
             if(parent != null ){
             String s = parent.toString();
             d.findUserGroup(s).add(d.findUser(userText.getText()));
@@ -143,7 +205,7 @@ public class Admin extends JFrame implements ActionListener{
         {
             
             add(groupText.getText(),true);
-            d.getGroups().add(new UserGroup(groupText.getText(), d));
+            d.getGroups().add(new UserGroup(groupText.getText(), d, System.currentTimeMillis()));
             if(parent != null){
             String s = parent.toString();
             d.findUserGroup(s).add(d.findUserGroup(groupText.getText()));
@@ -175,7 +237,13 @@ public class Admin extends JFrame implements ActionListener{
          //Opens user view window   
         }else if(e.getActionCommand().equals("userView")){
             UserView u = new UserView(d.findUser(view.getText()));
-}
+            
+        }else if(e.getActionCommand().equals("validate")){
+            validation();
+        }else if(e.getActionCommand().equals("last")){
+            System.out.println("Last User Updated: " + lastUpdatedUser());
+        }
+        
         
         
         DefaultTreeModel T = (DefaultTreeModel) hierarchy.getModel();

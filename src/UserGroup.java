@@ -11,7 +11,10 @@ public class UserGroup implements UserComp{
     private boolean isUser = false;
     private ArrayList g = new ArrayList();
     Database d;
-    public UserGroup(String id, Database d){
+    private long creationTime;
+    
+    public UserGroup(String id, Database d, long creationTime){
+        this.creationTime = creationTime;
         this.id = id;
         this.d = d;
     }
@@ -27,7 +30,9 @@ public class UserGroup implements UserComp{
         return id;
     }
     
-    
+    public long getCreation(){
+        return creationTime;
+    }
     
     
     

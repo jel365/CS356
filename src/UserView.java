@@ -37,9 +37,15 @@ public class UserView extends JFrame implements ActionListener{
         header.setSize(600,50);
         header.setLocation(0,0);
         JLabel userID = new JLabel("User: " + u.getID());
+        JLabel c_Time = new JLabel("Creation time: " + u.getCreation());
+        JLabel current = new JLabel("Current time: " + System.currentTimeMillis());
+        JLabel upTime = new JLabel("Last updated: " + u.getUpdate());
         followButton.addActionListener(this);
         followButton.setActionCommand("follow");
         header.add(userID, FlowLayout.LEFT);
+        header.add(c_Time);
+        header.add(current);
+        header.add(upTime);
         header.add(followUser, FlowLayout.CENTER);
         header.add(followButton, FlowLayout.RIGHT);
         header.setBackground(Color.cyan);
@@ -101,7 +107,7 @@ public void Update(String s){
             
            
             d.findUser(u.getID()).getFollowers().get(a).getFeed().add(s);
-            
+             d.findUser(u.getID()).getFollowers().get(a).setUpdate(System.currentTimeMillis());
             System.out.println("Followers updated");
             revalidate();
         }
@@ -120,6 +126,7 @@ public void positiveCheck(){
             followerList.removeAll();
             u.follow(followUser.getText());
             displayFollowers();
+            
          //post status
         }else if(e.getActionCommand().equals("tweet")){
             d.addedMessage();
@@ -127,6 +134,7 @@ public void positiveCheck(){
             newsFeed.removeAll();
             u.status(tweetField.getText());
             Update(tweetField.getText());
+            u.setUpdate(System.currentTimeMillis());
             displayFeed();
             revalidate();
         }

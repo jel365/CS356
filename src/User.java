@@ -9,11 +9,15 @@ public class User implements UserComp{
 private String id;
 private ArrayList<User>followers = new ArrayList<User>();
 Database d;
+private long creationTime;
+private long updateTime;
 private boolean isUser = true;
 ArrayList feed = new ArrayList();
-    public User(String id, Database d){
+    public User(String id, Database d, long creationTime, long updateTime){
         this.id = id;
         this.d = d;
+        this.creationTime = creationTime;
+        this.updateTime = updateTime;
     }
     
     //User is leaf; not used
@@ -55,6 +59,17 @@ ArrayList feed = new ArrayList();
         return feed;
     }
     
+    public long getCreation(){
+        return creationTime;
+    }
+    
+    public long getUpdate(){
+        return updateTime;
+    }
+    
+    public void setUpdate(long up){
+        updateTime = up;
+    }
     
     
     
